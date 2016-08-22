@@ -81,6 +81,37 @@ This is incredibly easy using [Homebrew](http://brew.sh).  Just run this command
 And you're done.  A "sqlitebrowser" command should now be available in your PATH,
 and can also be launched through Spotlight.
 
+### Building with macports
+
+Requisite dependencies:
+
+    $ sudo port install qt4-mac
+    $ sudo port install sqlite3
+
+qmake doesn't always make it into the path.  If not, try this:
+
+    $ PATH=/opt/local/libexec/qt4/bin:$PATH
+
+You can confirm that this is the right path to add by:
+
+    $ mdfind qmake | grep bin
+
+Which should output something like this:
+
+    /opt/local/libexec/qt4/bin/qmake
+    /opt/local/var/macports/sources/rsync.macports.org/release/tarballs/ports/devel/qtsharp/files/patch-bindings-Makefile
+
+Then:
+
+    $ git clone https://github.com/sqlitebrowser/sqlitebrowser.git
+    $ cmake .
+    $ make
+
+
+This does build 'src/DB Browser for SQLite.app', which did not work on 10.9.5.  
+
+However, I was able to copy the raw executable to /usr/local/bin and run it from there (no .app bundle). 
+
 ### Building an .app bundle
 
 Building an .app bundle version takes a bit more effort, but isn't too hard.
